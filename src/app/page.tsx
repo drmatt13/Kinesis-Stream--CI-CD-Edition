@@ -5,89 +5,118 @@
 export default function Home() {
   return (
     <>
-      <div className="w-full flex flex-col items-center mt-20">
-        <h1 className="text-2xl font-bold mb-8">
+      <div className="w-full flex flex-col items-center pt-12 lg:pt-16 pb-10 md:pb-12 px-6 sm:px-10 text-sm sm:text-base">
+        <h1 className="text-lg lg:text-2xl font-bold mb-12">
           Kinesis Stream: CI/CD Edition
         </h1>
 
         <video
           src="/kinesis.mp4"
           controls={true}
-          className="max-w-full w-[48rem]"
+          className="max-w-full md:w-[90%] lg:w-[75%]"
         ></video>
         <a
           href="https://github.com/drmatt13/ci-cd-kinesis-react-demo"
-          className="text-blue-600 underline cursor-pointer mt-8 text-2xl hover:text-blue-700 visited:text-purple-600"
+          className="text-blue-600 underline cursor-pointer mt-8 text-base lg:text-xl hover:text-blue-700 visited:text-purple-600"
         >
-          github repo link
+          github repository
         </a>
-        <div className="mt-12 max-w-[90vw]">
+        <div className="mt-8 max-w-[90vw]">
           <p>
             This project serves a multifaceted purpose: to demonstrate advanced
             CI/CD capabilities, expertise in Kinesis data streaming, and
             proficiency in front-end design using React. Within the visual
-            showcase, React features five clickable data streaming functions
-            which are showcased on the left. Though they share the same
-            underlying Lambda function, each sends a distinct colored payload
-            when toggled, each represented by a distinct color. On the opposite
-            side, a singular polling function extracts this data, adhering to
-            the order of the sent batches. For instance, if blue payloads are
-            sent in multiple batches followed by different colors, polling would
-            animate these blue batches sequentially, preserving their order, and
-            then progress through the subsequent colors. This visual
-            representation not only highlights the precision of data streaming
-            but also emphasizes the importance of payload sequencing.
+            showcase, the React frontend offers five interactive data streaming
+            functions displayed on the left. Moreover, meticulous React state
+            management ensures the frontend remains resilient and user-centric.
+            Instead of mere binary states for the data streaming functions, an
+            advanced object-based state system is employed. This allows for
+            multiple statuses, such as {"'"}running{"'"}, {"'"}stopped{"'"}, and{" "}
+            {"'"}shutting down{"'"}, guaranteeing that user interactions—like
+            toggling functions on and off—flow smoothly and don{"'"}t disrupt
+            the animations or overwhelm the system. Regarding these data
+            streaming functions, each one, while relying on the same underlying
+            Lambda function, has its unique behavior: periodically dispatching a
+            payload with a randomized value when toggled on, identifiable by a
+            unique color. On the right, a singular polling function extracts
+            this data, preserving the order of the sent batches. For instance,
+            if blue payloads are transmitted across multiple batches followed by
+            other shades, polling first retrieves all the blue sequences before
+            moving on to the subsequent colors, ensuring the original order of
+            data transmission is maintained. To ensure the integrity of this
+            polling process, the system adopts the {"'"}trim-horizon{"'"}{" "}
+            starting position of Kinesis Data Streams. This ensures that the
+            polling starts from the oldest available data. Meanwhile, DynamoDB
+            is employed to consistently track the shard iterator{"'"}s position,
+            guaranteeing that subsequent reads are seamless and maintain the
+            data{"'"}s sequential integrity. This holistic approach not only
+            underscores the precision of data streaming but also accentuates the
+            significance of payload sequencing. By introducing the context of
+            the data streaming functions first, I hope it clarifies the sequence
+            of events and actions described in the paragraph.
           </p>
+
           <p className="mt-6">
-            Beyond just showcasing functionality, the project emphasizes the
-            intricate choreography between different AWS services. By leveraging
-            Lambda in tandem with Kinesis, it accentuates the synergy possible
-            in AWS{"'"}s ecosystem, underpinning the foundation of real-time
-            data handling.
+            Beyond its evident functionalities, this project epitomizes the art
+            of Infrastructure as Code (IaC) through CloudFormation and the
+            agility of CI/CD processes. It showcases the rapid deployment and
+            seamless teardown capabilities that businesses greatly value. Using
+            Lambda with Kinesis, I{"'"}ve designed a streamlined data flow that
+            maximizes efficiency, emphasizing the practical applications and
+            potential of the AWS toolkit. This swift and modular deployment,
+            empowered by CI/CD and CloudFormation, ensures that real-time data
+            processing is not just efficient but also scalable and adaptable to
+            changing business needs. In essence, this project is both a
+            testament to the transformative power of AWS services and an
+            endorsement of the modern deployment strategies that drive today
+            {"'"}s most agile tech enterprises.
           </p>
         </div>
         <div
-          className="max-w-[90vw] mt-16 p-4 shadow-lg shadow-black/30 cursor-pointer bg-white rounded-xl"
+          className="mt-12 sm:mt-14 cursor-pointer bg-white"
           onClick={() => window.open("/architecture.svg")}
         >
           <img src="/architecture.svg" alt="architecture.svg" />
         </div>
-        <div className="mt-16 max-w-[90vw]">
+        <div className="italic text-xs lg:text-sm">^ click to expand</div>
+        <div className="mt-12 sm:mt-14 max-w-[90vw]">
           <p>
-            The architectural SVG presents the blueprint of the entire
-            operation. Originating from a GitHub repository, it illustrates the
-            workflow: cloning the SAM project, uploading it to a personal
-            CodeCommit repository, initializing an S3 bucket for the React app,
-            setting up an IAM role for CodeBuild, and establishing the CodeBuild
-            project. With the inclusion of a buildspec within the repository, it
-            facilitates the streamlined deployment of the React application and
-            the AWS resources.
+            The provided SVG paints a comprehensive picture, outlining both the
+            setup and AWS architectural components of the project. Setting up
+            the environment and replicating this architecture is made
+            user-friendly, with guidance available in the linked GitHub
+            repository. By walking through the tutorial, users can redeploy this
+            robust architecture on AWS, ensuring a hands-on understanding of the
+            system{"'"}s intricacies and utility.
           </p>
           <p className="mt-6">
-            The culmination of this setup sees the deployment of the API Gateway
-            and the twin Lambda functions, each optimized for a specific task,
-            working in conjunction with a Kinesis data stream. Additionally,
-            DynamoDB plays a pivotal role, particularly in the polling function,
-            ensuring consistent data tracking and retrieval. This entire
-            endeavor underscores the possibilities of AWS services when combined
-            efficiently and effectively. Kinesis Stream: CI/CD Edition
+            The journey starts with a GitHub repository, guiding users
+            step-by-step through the process: from cloning the SAM project to
+            uploading it to their own CodeCommit repository. Necessary
+            resources, such as an S3 bucket for the React app and an IAM role
+            for CodeBuild, are laid out in the walkthrough. The repository even
+            offers a built-in buildspec, streamlining the deployment of both the
+            React app and associated AWS resources. With this design, I aim to
+            demystify the intricacies of cloud architectures, ensuring that both
+            tech-savvy individuals and newcomers alike can navigate and
+            understand the setup with ease.
+          </p>
+          <p className="mt-6">
+            At its core, this project is more than just lines of code and cloud
+            components—it{"'"}s a tangible testament to what I bring to the
+            table. Using widely recognized AWS tools, I{"'"}ve built a system
+            that effectively manages and displays streaming data in real-time.
+            This showcases my adeptness in harnessing the power of AWS services
+            like Lambda for data input, DynamoDB for ensuring data consistency,
+            and API Gateway for seamless communication. More importantly, it
+            underscores my commitment to creating user-centric solutions that
+            are not just efficient but also intuitive. For recruiters and
+            potential employers, this translates to a proven capability to
+            innovate, optimize, and drive results in any tech-driven
+            environment.
           </p>
         </div>
       </div>
-      <footer>
-        <div className="flex flex-col items-center justify-center mt-12 md:mt-20 bg-black/10 w-full backdrop-blur h-28">
-          <p className="text-xl font-bold mt-6 mb-2">Made by Matthew Sweeney</p>
-          <div className="flex flex-row space-x-4 mb-4">
-            <a
-              href="
-                https://www.linkedin.com/in/drmatt13/"
-              className="text-blue-600 underline cursor-pointer hover:text-blue-700 visited:text-purple-600"
-            >
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }
